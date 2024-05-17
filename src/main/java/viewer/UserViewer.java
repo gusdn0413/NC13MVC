@@ -1,64 +1,37 @@
 package viewer;
 
-import controller.BoardController;
 import controller.UserController;
 import lombok.Setter;
-import model.BoardDTO;
 import model.UserDTO;
 import util.ScannerUtil;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserViewer {
-
     @Setter
     private UserController userController;
     @Setter
     private Scanner scanner;
     @Setter
-    private UserDTO loginId;
+    private UserDTO logIn;
     @Setter
-    private BoardController boardController;
+    private BoardViewer boardViewer;
 
-    public void showMenu() {
+    public void showIndex() {
         String message = "1. 로그인 2. 회원가입 3. 프로그램 종료";
         while (true) {
             int userChoice = ScannerUtil.nextInt(scanner, message);
             if (userChoice == 1) {
                 auth();
-
-                if (loginId != null) {
-                    showIndex();
+                if (logIn != null) {
+                    // 회원 메뉴 실행
+                    boardViewer.setLogIn(logIn);
+                    showMenu();
                 }
             } else if (userChoice == 2) {
                 register();
             } else if (userChoice == 3) {
-                System.out.println("사용 감사");
-                break;
-            }
-        }
-    }
-
-    public void showIndex() {
-        String message = "1. 게시글 쓰기 2. 게시글 보기 3. 게시글 삭제 4. 회원정보 수정 5. 로그아웃";
-        while (true) {
-            int userChoice = ScannerUtil.nextInt(scanner, message);
-            if (userChoice == 1) {
-                writeBoard();
-            } else if (userChoice == 2) {
-                showBoard();
-            } else if (userChoice == 3) {
-                message = "삭제할 게시글의 번호를 입력해주세요";
-                int boardId = ScannerUtil.nextInt(scanner, message);
-                deleteBoard(boardId);
-            } else if (userChoice == 4) {
-                update(loginId.getId());
-                if (this.loginId == null) {
-                    break;
-                }
-            } else if (userChoice == 5) {
-                this.loginId = null;
+                System.out.println("사용해주셔서 감사합니다.");
                 break;
             }
         }
@@ -66,156 +39,109 @@ public class UserViewer {
 
     private void auth() {
         String message;
-
-        message = "아이디를 입력해주세요";
+        message = "아이디를 입력해주세요.";
         String username = ScannerUtil.nextLine(scanner, message);
 
-        message = "비밀번호를 입력해주세요";
+        message = "비밀번호를 입력해주세요.";
         String password = ScannerUtil.nextLine(scanner, message);
 
-        UserDTO loginId = userController.auth(username, password);
-        if (loginId == null) {
-            System.out.println("잘못 입력하셨습니다. 로그인 정보를 다시 확인해주세요");
-        } else {
-            this.loginId = loginId;
+        logIn = userController.auth(username, password);
+
+        if (logIn == null) {
+            System.out.println("잘못 입력하셨습니다. 로그인 정보를 다시 확인해주세요.");
         }
     }
 
     public void register() {
-        String message;
-        message = "아이디를 입력해주세요";
-        String username = ScannerUtil.nextLine(scanner, message);
-        message = "비밀번호를 입력해주세요";
-        String password = ScannerUtil.nextLine(scanner, message);
-        message = "닉네임을 입력해주세요";
-        String nickname = ScannerUtil.nextLine(scanner, message);
 
+        String message = "사용하실 아이디를 입력해주세요";
+        String username = ScannerUtil.nextLine(scanner, message);
         if (userController.validateUsername(username)) {
+
+            message = "사용할 비밀번호를 입력해주세요";
+            String password = ScannerUtil.nextLine(scanner, message);
+
+            message = "사용할 닉네임을 입력해주세요";
+            String nickname = ScannerUtil.nextLine(scanner, message);
+
             UserDTO userDTO = new UserDTO();
             userDTO.setUsername(username);
             userDTO.setPassword(password);
             userDTO.setNickname(nickname);
+
             userController.insert(userDTO);
-            System.out.println("회원 가입이 완료되었습니다");
         } else {
-            System.out.println("중복하는 회원 이름입니다");
+            System.out.println("중복 된 아이디는 사용할 수 없습니다.");
         }
     }
 
-    public void delete() {
-        String message = "정말 삭제 하시겠습니까? Y/N";
-        String answer = ScannerUtil.nextLine(scanner, message);
-        if (answer.equalsIgnoreCase("Y")) {
-            message = "삭제 하시려면 비밀번호를 입력해주세요";
-            String password = ScannerUtil.nextLine(scanner, message);
-            if (password.equals(loginId.getPassword())) {
-                userController.delete(loginId.getId());
-                System.out.println("삭제되었습니다");
-                this.loginId = null;
-            } else {
-                System.out.println("잘못 입력하셨습니다");
+    private void showMenu() {
+        String message = "1. 게시판으로 2. 회원 정보 수정 3. 로그 아웃";
+        while (logIn != null) {
+            int userChoice = ScannerUtil.nextInt(scanner, message);
+            if (userChoice == 1) {
+                boardViewer.showMenu(logIn.getId());
+            } else if (userChoice == 2) {
+                printInfo();
+
+            } else if (userChoice == 3) {
+                logIn = null;
+                System.out.println("성공적으로 로그아웃");
+                break;
             }
-        } else if (answer.equalsIgnoreCase("N")) {
-            System.out.println("회원 삭제를 취소합니다.");
         }
     }
 
-    public void update(int id) {
-        String message;
-        message = "1. 회원 정보 수정 2. 삭제";
+    private void printInfo() {
+        System.out.println("============================");
+        System.out.println(logIn.getNickname() + " 회원님의 정보");
+
+        System.out.println("============================");
+        System.out.println("아이디 : " + logIn.getId());
+        System.out.println("닉네임 : " + logIn.getNickname());
+
+        System.out.println("============================");
+        String message = "1. 회원 정보 수정 2. 회원 탈퇴 3. 뒤로 가기";
+
         int userChoice = ScannerUtil.nextInt(scanner, message);
         if (userChoice == 1) {
-            UserDTO userDTO = userController.selectOne(id);
-
-            message = "새로운 비밀번호를 입력해주세요";
-            userDTO.setPassword(ScannerUtil.nextLine(scanner, message));
-
-            message = "새로운 닉네임을 입력해주세요";
-            userDTO.setNickname(ScannerUtil.nextLine(scanner, message));
-
-            userController.update(userDTO);
+            update();
         } else if (userChoice == 2) {
             delete();
-        }
-    }
 
-    public void writeBoard() {
-        String message;
-        message = "제목을 입력해주세요";
-        String topic = ScannerUtil.nextLine(scanner, message);
-        message = "내용을 입력해주세요";
-        String content = ScannerUtil.nextLine(scanner, message);
-
-        BoardDTO boardDTO = new BoardDTO();
-        boardDTO.setTopic(topic);
-        boardDTO.setContent(content);
-        boardDTO.setAuthor(loginId.getNickname());
-
-        boardController.insert(boardDTO);
-    }
-
-
-    private void showBoard() {
-        ArrayList<BoardDTO> boardDTOS = boardController.selectAll();
-        String message;
-        message = "1. 전체 보기 2. 특정 게시물 보기 3. 게시글 수정";
-        int userChoice = ScannerUtil.nextInt(scanner, message);
-        if (userChoice == 1) {
-            for (BoardDTO boardDTO : boardDTOS) {
-                System.out.println(
-                        boardDTO.getId() + "번 게시글의 제목 :" +
-                                boardDTO.getTopic() + " 내용 : " +
-                                boardDTO.getContent() + " 작가 : " +
-                                boardDTO.getAuthor());
-                System.out.println("=================================");
-            }
-        } else if (userChoice == 2) {
-            message = "게시글의 번호를 입력해주세요";
-            int boardId = ScannerUtil.nextInt(scanner, message);
-            BoardDTO boardDTO = boardController.selectOne(boardId);
-            if (boardDTO == null) {
-                System.out.println("해당 번호의 게시글이 없습니다");
-                System.out.println("=================================");
-            } else {
-                System.out.println(boardId + "번 게시글 제목 : " + boardDTO.getTopic());
-                System.out.println(boardId + "번 게시글 내용 : " + boardDTO.getContent());
-                System.out.println(boardId + "번 게시글 작가 : " + boardDTO.getAuthor());
-                System.out.println("=================================");
-            }
         } else if (userChoice == 3) {
-            message = "수정할 게시글의 번호를 입력해주세요";
-            int boardId = ScannerUtil.nextInt(scanner, message);
-            if (boardController.selectOne(boardId) == null) {
-                System.out.println("게시글이 존재하지 않습니다");
-            } else {
-                updateBoard(boardId);
-            }
-        } else {
-            System.out.println("=================================");
-            System.out.println("잘못된 번호입니다");
+
         }
     }
 
-    public void updateBoard(int id) {
-        BoardDTO boardDTO = boardController.selectOne(id);
-        String message;
-        message = "새로운 제목을 입력해주세요";
-        boardDTO.setTopic(ScannerUtil.nextLine(scanner, message));
-        message = "새로운 내용을 입력해주세요";
-        boardDTO.setContent(ScannerUtil.nextLine(scanner, message));
+    private void update() {
+        String message = "새로운 닉네임을 입력해주세요";
+        String newNickname = ScannerUtil.nextLine(scanner, message);
+        message = "새로운 비밀번호를 입력해주세요";
+        String newPassword = ScannerUtil.nextLine(scanner, message);
+        message = "기존 비밀번호를 입력해주세요";
+        String oldPassword = ScannerUtil.nextLine(scanner, message);
 
-        boardController.update(boardDTO);
+        if (oldPassword.equals(logIn.getPassword())) {
+            logIn.setNickname(newNickname);
+            logIn.setPassword(newPassword);
+
+            userController.update(logIn);
+        } else {
+            System.out.println("기존 비밀번호와 달라서 수정할 수 없습니다");
+        }
     }
 
-    public void deleteBoard(int id) {
-        String answer = ScannerUtil.nextLine(scanner, "정말로 삭제하시겠습니까 Y/N");
+    private void delete() {
+        String message = "정말로 탈퇴하시겠습니가? Y/N";
+        String answer = ScannerUtil.nextLine(scanner, message);
         if (answer.equalsIgnoreCase("Y")) {
-            boardController.delete(id);
-            System.out.println(id + "번 게시글이 삭제 되었습니다");
-        } else if (answer.equalsIgnoreCase("N")) {
-            System.out.println("삭제 하지 않습니다");
-        } else {
-            System.out.println("잘못 입력하셨습니다");
+            message = "비밀번호를 입력해주세요";
+            String password = ScannerUtil.nextLine(scanner, message);
+            if (password.equals(logIn.getPassword())) {
+                userController.delete(logIn.getId());
+                logIn = null;
+            }
         }
     }
 }

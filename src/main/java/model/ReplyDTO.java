@@ -3,20 +3,20 @@ package model;
 import lombok.Data;
 
 @Data
-public class BoardDTO {
+public class ReplyDTO {
     private int id;
-    private String title;
     private String content;
     private int writerId;
+    private int boardId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o instanceof BoardDTO) {
-            BoardDTO b = (BoardDTO) o;
-            return id == b.id;
+        if (o instanceof ReplyDTO) {
+            ReplyDTO replyDTO = (ReplyDTO) o;
+            return id == replyDTO.id;
         }
         return false;
     }
