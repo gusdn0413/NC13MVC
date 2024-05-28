@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b7ca5b4-c97d-437f-9ad3-8dafe5bfc7fa" name="변경" comment="2024.05.28">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/StudentController2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/StudentController2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/viewer/StudentViewer2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/viewer/StudentViewer2.java" afterDir="false" />
     </list>
@@ -107,7 +106,7 @@
       <workItem from="1716856511849" duration="7819000" />
       <workItem from="1716865487110" duration="824000" />
       <workItem from="1716866384024" duration="6392000" />
-      <workItem from="1716872953603" duration="8506000" />
+      <workItem from="1716872953603" duration="8926000" />
     </task>
     <task id="LOCAL-00001" summary="2024.05.16">
       <option name="closed" value="true" />
@@ -141,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716880924956</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="2024.05.28">
+      <option name="closed" value="true" />
+      <created>1716881724146</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716881724146</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

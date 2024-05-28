@@ -1,11 +1,9 @@
 package controller;
 
 import model.StudentDTO;
-import util.ScannerUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class StudentController2 {
     private String query;
@@ -73,9 +71,9 @@ public class StudentController2 {
 
     public void delete(Connection connection, int id) throws SQLException {
 
-
         query = "DELETE FROM student WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
+
         preparedStatement.setInt(1, id);
 
         preparedStatement.executeUpdate();

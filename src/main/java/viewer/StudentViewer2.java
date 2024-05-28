@@ -43,8 +43,8 @@ public class StudentViewer2 {
 
     private void insert(Connection connection, Scanner scanner) throws SQLException {
 
-        scanInfo result = getScanInfo(scanner);
-        StudentDTO studentDTO = saveInfo(result);
+        scanInfo result = getStudentScanInfo(scanner);
+        StudentDTO studentDTO = saveStudentInfo(result);
 
         studentController2.insert(connection, studentDTO);
     }
@@ -58,15 +58,15 @@ public class StudentViewer2 {
     }
 
     private void selectOne(Connection connection, Scanner scanner) throws SQLException {
-        int id = getId(scanner);
+        int id = getStudentId(scanner);
         StudentDTO studentDTO = studentController2.selectOne(connection, id);
         System.out.println("studentDTO = " + studentDTO);
     }
 
     private void update(Connection connection, Scanner scanner) throws SQLException {
-        int id = getId(scanner);
-        scanInfo scanInfo = getScanInfo(scanner);
-        StudentDTO studentDTO = saveInfo(scanInfo);
+        int id = getStudentId(scanner);
+        scanInfo scanInfo = getStudentScanInfo(scanner);
+        StudentDTO studentDTO = saveStudentInfo(scanInfo);
         studentDTO.setId(id);
         studentController2.update(connection, studentDTO);
     }
@@ -77,7 +77,7 @@ public class StudentViewer2 {
         studentController2.delete(connection, id);
     }
 
-    private static scanInfo getScanInfo(Scanner scanner) {
+    private static scanInfo getStudentScanInfo(Scanner scanner) {
         String message;
         message = "이름을 입력하시오 : ";
         String name = ScannerUtil.nextLine(scanner, message);
@@ -91,15 +91,14 @@ public class StudentViewer2 {
     }
 
     private record scanInfo(String name, int korean, int english, int math) {
-
     }
 
-    private static int getId(Scanner scanner) {
+    private static int getStudentId(Scanner scanner) {
         String message = "수정할 학생의 번호 : ";
         return ScannerUtil.nextInt(scanner, message);
     }
 
-    private static StudentDTO saveInfo(scanInfo result) {
+    private static StudentDTO saveStudentInfo(scanInfo result) {
         StudentDTO studentDTO = new StudentDTO();
         studentDTO.setName(result.name());
         studentDTO.setKorean(result.korean());
