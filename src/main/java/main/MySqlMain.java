@@ -55,7 +55,7 @@ public class MySqlMain {
             }
 
             // 2. SELECT
-            query = "SELECT * FROM board WHERE id =?";
+            query = "SELECT * FROM board WHERE id = ?";
             preparedStatement = connection.prepareStatement(query);
 
             // ? 자리에 우리가 원하는 값을 넣어주자

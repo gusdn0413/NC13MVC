@@ -1,6 +1,6 @@
 package viewer;
 
-import controller.StudentController2;
+import controller.StudentControllerH;
 import lombok.Setter;
 import model.StudentDTO;
 import util.ScannerUtil;
@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StudentViewer2 {
-    @Setter
-    private StudentController2 studentController2;
-    @Setter
+@Setter
+public class StudentViewerH {
+
+    private StudentControllerH studentController2;
     private Scanner scanner;
 
     public void showMenu() throws SQLException {

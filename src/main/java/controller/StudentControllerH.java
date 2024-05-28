@@ -5,22 +5,18 @@ import model.StudentDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class StudentController2 {
+public class StudentControllerH {
     private String query;
-    private Connection connection;
+    private final Connection connection;
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String URL = "jdbc:mysql://localhost:3306/board";
     public static final String USERNAME = "root";
     public static final String PASSWORD = "Qkr1593574!s";
 
-    public StudentController2() {
-        try {
+    public StudentControllerH() throws SQLException, ClassNotFoundException {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void insert(StudentDTO studentDTO) throws SQLException {
