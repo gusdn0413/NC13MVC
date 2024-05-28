@@ -1,6 +1,5 @@
 package controller;
 
-import model.BoardDTO;
 import model.ReplyDTO;
 
 import java.util.ArrayList;

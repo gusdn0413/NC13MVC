@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b7ca5b4-c97d-437f-9ad3-8dafe5bfc7fa" name="변경" comment="2024.05.16">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ReplyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/ReplyDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/viewer/BoardViewer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/viewer/ReplyViewer.java" afterDir="false" />
+    <list default="true" id="3b7ca5b4-c97d-437f-9ad3-8dafe5bfc7fa" name="변경" comment="2024.05.17">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/BoardMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/BoardMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/StudentMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/StudentMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/BoardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/BoardDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/StudentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/StudentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/viewer/StudentViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/viewer/StudentViewer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/viewer/UserViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/viewer/UserViewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ReplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ReplyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/viewer/BoardViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/viewer/BoardViewer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +95,12 @@
       <workItem from="1715861217568" duration="43000" />
       <workItem from="1715906431360" duration="1521000" />
       <workItem from="1715907966324" duration="17913000" />
-      <workItem from="1715927538172" duration="9385000" />
+      <workItem from="1715927538172" duration="24420000" />
+      <workItem from="1716287028178" duration="618000" />
+      <workItem from="1716339795136" duration="176000" />
+      <workItem from="1716340050140" duration="529000" />
+      <workItem from="1716378364115" duration="10000" />
+      <workItem from="1716823337704" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="2024.05.16">
       <option name="closed" value="true" />
@@ -117,7 +110,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715861107496</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="2024.05.17">
+      <option name="closed" value="true" />
+      <created>1715938843963</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715938843963</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,7 +126,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2024.05.16" />
-    <option name="LAST_COMMIT_MESSAGE" value="2024.05.16" />
+    <MESSAGE value="2024.05.17" />
+    <option name="LAST_COMMIT_MESSAGE" value="2024.05.17" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
