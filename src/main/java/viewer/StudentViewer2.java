@@ -3,10 +3,8 @@ package viewer;
 import controller.StudentController2;
 import lombok.Setter;
 import model.StudentDTO;
-import model.UserDTO;
 import util.ScannerUtil;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,8 +12,6 @@ import java.util.Scanner;
 public class StudentViewer2 {
     @Setter
     private StudentController2 studentController2;
-    @Setter
-    private Connection connection;
     @Setter
     private Scanner scanner;
 
@@ -25,59 +21,58 @@ public class StudentViewer2 {
             int userChoice = ScannerUtil.nextInt(scanner, message);
 
             if (userChoice == 1) {
-                insert(connection, scanner);
+                insert();
             } else if (userChoice == 2) {
-                selectAll(connection);
+                selectAll();
             } else if (userChoice == 3) {
-                selectOne(connection, scanner);
+                selectOne();
             } else if (userChoice == 4) {
-                update(connection, scanner);
+                update();
             } else if (userChoice == 5) {
-                delete(connection, scanner);
+                delete();
             } else if (userChoice == 6) {
-                studentController2.initialize(connection);
+                studentController2.initialize();
                 break;
             }
         }
     }
 
-    private void insert(Connection connection, Scanner scanner) throws SQLException {
+    private void insert() throws SQLException {
 
-        scanInfo result = getStudentScanInfo(scanner);
+        scanInfo result = getStudentScanInfo();
         StudentDTO studentDTO = saveStudentInfo(result);
 
-        studentController2.insert(connection, studentDTO);
+        studentController2.insert(studentDTO);
     }
 
-    private void selectAll(Connection connection) throws SQLException {
-        ArrayList<StudentDTO> list = studentController2.selectAll(connection);
+    private void selectAll() throws SQLException {
+        ArrayList<StudentDTO> list = studentController2.selectAll();
         for (StudentDTO studentDTO : list) {
             System.out.println("studentDTO = " + studentDTO);
         }
-
     }
 
-    private void selectOne(Connection connection, Scanner scanner) throws SQLException {
-        int id = getStudentId(scanner);
-        StudentDTO studentDTO = studentController2.selectOne(connection, id);
+    private void selectOne() throws SQLException {
+        int id = getStudentId();
+        StudentDTO studentDTO = studentController2.selectOne(id);
         System.out.println("studentDTO = " + studentDTO);
     }
 
-    private void update(Connection connection, Scanner scanner) throws SQLException {
-        int id = getStudentId(scanner);
-        scanInfo scanInfo = getStudentScanInfo(scanner);
+    private void update() throws SQLException {
+        int id = getStudentId();
+        scanInfo scanInfo = getStudentScanInfo();
         StudentDTO studentDTO = saveStudentInfo(scanInfo);
         studentDTO.setId(id);
-        studentController2.update(connection, studentDTO);
+        studentController2.update(studentDTO);
     }
 
-    private void delete(Connection connection,Scanner scanner) throws SQLException {
+    private void delete() throws SQLException {
         String message = "삭제할 학생의 번호 : ";
         int id = ScannerUtil.nextInt(scanner, message);
-        studentController2.delete(connection, id);
+        studentController2.delete(id);
     }
 
-    private static scanInfo getStudentScanInfo(Scanner scanner) {
+    private scanInfo getStudentScanInfo() {
         String message;
         message = "이름을 입력하시오 : ";
         String name = ScannerUtil.nextLine(scanner, message);
@@ -93,7 +88,7 @@ public class StudentViewer2 {
     private record scanInfo(String name, int korean, int english, int math) {
     }
 
-    private static int getStudentId(Scanner scanner) {
+    private int getStudentId() {
         String message = "수정할 학생의 번호 : ";
         return ScannerUtil.nextInt(scanner, message);
     }

@@ -7,11 +7,23 @@ import java.util.ArrayList;
 
 public class StudentController2 {
     private String query;
+    private Connection connection;
+
+    public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    public static final String URL = "jdbc:mysql://localhost:3306/board";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "Qkr1593574!s";
 
     public StudentController2() {
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void insert(Connection connection, StudentDTO studentDTO) throws SQLException {
+    public void insert(StudentDTO studentDTO) throws SQLException {
 
         query = "INSERT INTO student(name, korean, english, math) VALUES (?, ?, ?, ?)";
 
@@ -24,7 +36,7 @@ public class StudentController2 {
         preparedStatement.executeUpdate();
     }
 
-    public ArrayList<StudentDTO> selectAll(Connection connection) throws SQLException {
+    public ArrayList<StudentDTO> selectAll() throws SQLException {
         ArrayList<StudentDTO> list = new ArrayList<>();
         query = "SELECT * FROM student";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -39,7 +51,7 @@ public class StudentController2 {
         return list;
     }
 
-    public StudentDTO selectOne(Connection connection, int id) throws SQLException {
+    public StudentDTO selectOne(int id) throws SQLException {
 
         query = "SELECT * FROM student WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -55,7 +67,7 @@ public class StudentController2 {
         return studentDTO;
     }
 
-    public void update(Connection connection, StudentDTO studentDTO) throws SQLException {
+    public void update(StudentDTO studentDTO) throws SQLException {
 
         query = "UPDATE student SET name = ?, korean = ?, english = ?, math = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -69,7 +81,7 @@ public class StudentController2 {
         preparedStatement.executeUpdate();
     }
 
-    public void delete(Connection connection, int id) throws SQLException {
+    public void delete(int id) throws SQLException {
 
         query = "DELETE FROM student WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -79,7 +91,7 @@ public class StudentController2 {
         preparedStatement.executeUpdate();
     }
 
-    public void initialize(Connection connection) throws SQLException {
+    public void initialize() throws SQLException {
 
         query = "DELETE FROM student";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

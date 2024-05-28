@@ -7,31 +7,20 @@ import viewer.StudentViewer2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class StudentMain2 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         StudentController2 studentController2 = new StudentController2();
         StudentViewer2 studentViewer2 = new StudentViewer2();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/board";
-            String username = "root";
-            String password = "Qkr1593574!s";
+        studentViewer2.setStudentController2(studentController2);
+        studentViewer2.setScanner(scanner);
 
-            Connection connection = DriverManager.getConnection(url, username, password);
+        System.out.println("connection 성공");
 
-            studentViewer2.setStudentController2(studentController2);
-            studentViewer2.setConnection(connection);
-            studentViewer2.setScanner(scanner);
-
-            System.out.println("connection 성공");
-
-            studentViewer2.showMenu();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        studentViewer2.showMenu();
     }
 }
