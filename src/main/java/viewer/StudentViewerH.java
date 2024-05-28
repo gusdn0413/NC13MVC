@@ -60,9 +60,9 @@ public class StudentViewerH {
 
     private void update() throws SQLException {
         int id = getStudentId();
+        StudentDTO studentDTO = studentController2.selectOne(id);
         scanInfo scanInfo = getStudentScanInfo();
-        StudentDTO studentDTO = saveStudentInfo(scanInfo);
-        studentDTO.setId(id);
+        updateStudentInfo(scanInfo, studentDTO);
         studentController2.update(studentDTO);
     }
 
@@ -84,6 +84,14 @@ public class StudentViewerH {
         int math = ScannerUtil.nextInt(scanner, message);
         return new scanInfo(name, korean, english, math);
     }
+    private static StudentDTO saveStudentInfo(scanInfo result) {
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setName(result.name());
+        studentDTO.setKorean(result.korean());
+        studentDTO.setEnglish(result.english());
+        studentDTO.setMath(result.math());
+        return studentDTO;
+    }
 
     private record scanInfo(String name, int korean, int english, int math) {
     }
@@ -93,8 +101,7 @@ public class StudentViewerH {
         return ScannerUtil.nextInt(scanner, message);
     }
 
-    private static StudentDTO saveStudentInfo(scanInfo result) {
-        StudentDTO studentDTO = new StudentDTO();
+    private static StudentDTO updateStudentInfo(scanInfo result,StudentDTO studentDTO) {
         studentDTO.setName(result.name());
         studentDTO.setKorean(result.korean());
         studentDTO.setEnglish(result.english());
