@@ -101,24 +101,4 @@ public class StudentController2 {
         studentDTO.setEnglish(student.getInt("english"));
         studentDTO.setMath(student.getInt("math"));
     }
-
-    private static Result getInfo(Scanner scanner) {
-        String message;
-        message = "이름을 입력하시오 : ";
-        String name = ScannerUtil.nextLine(scanner, message);
-
-        message = "국어 점수 : ";
-        int korean = ScannerUtil.nextInt(scanner, message);
-
-        message = "영어 점수 : ";
-        int english = ScannerUtil.nextInt(scanner, message);
-
-        message = "수학 점수 : ";
-        int math = ScannerUtil.nextInt(scanner, message);
-
-        return new Result(name, korean, english, math);
-    }
-
-    private record Result(String name, int korean, int english, int math) {
-    }
 }

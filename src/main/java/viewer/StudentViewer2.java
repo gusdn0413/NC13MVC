@@ -43,21 +43,8 @@ public class StudentViewer2 {
 
     private void insert(Connection connection, Scanner scanner) throws SQLException {
 
-        String message;
-        message = "이름을 입력하시오 : ";
-        String name = ScannerUtil.nextLine(scanner, message);
-        message = "국어 점수 : ";
-        int korean = ScannerUtil.nextInt(scanner, message);
-        message = "영어 점수 : ";
-        int english = ScannerUtil.nextInt(scanner, message);
-        message = "수학 점수 : ";
-        int math = ScannerUtil.nextInt(scanner, message);
-
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setName(name);
-        studentDTO.setKorean(korean);
-        studentDTO.setEnglish(english);
-        studentDTO.setMath(math);
+        scanInfo result = getScanInfo(scanner);
+        StudentDTO studentDTO = saveInfo(result);
 
         studentController2.insert(connection, studentDTO);
     }
@@ -71,14 +58,16 @@ public class StudentViewer2 {
     }
 
     private void selectOne(Connection connection, Scanner scanner) throws SQLException {
-        String message = "회원의 id : ";
-        int id = ScannerUtil.nextInt(scanner, message);
+        int id = getId(scanner);
         StudentDTO studentDTO = studentController2.selectOne(connection, id);
         System.out.println("studentDTO = " + studentDTO);
     }
 
     private void update(Connection connection, Scanner scanner) throws SQLException {
-        StudentDTO studentDTO = getInfo(scanner);
+        int id = getId(scanner);
+        scanInfo scanInfo = getScanInfo(scanner);
+        StudentDTO studentDTO = saveInfo(scanInfo);
+        studentDTO.setId(id);
         studentController2.update(connection, studentDTO);
     }
 
@@ -88,29 +77,34 @@ public class StudentViewer2 {
         studentController2.delete(connection, id);
     }
 
-    private StudentDTO getInfo(Scanner scanner) {
-        StudentDTO studentDTO = new StudentDTO();
-
-        String message = "수정할 학생의 번호 : ";
-        int id = ScannerUtil.nextInt(scanner, message);
-
+    private static scanInfo getScanInfo(Scanner scanner) {
+        String message;
         message = "이름을 입력하시오 : ";
         String name = ScannerUtil.nextLine(scanner, message);
-
         message = "국어 점수 : ";
         int korean = ScannerUtil.nextInt(scanner, message);
-
         message = "영어 점수 : ";
         int english = ScannerUtil.nextInt(scanner, message);
-
         message = "수학 점수 : ";
         int math = ScannerUtil.nextInt(scanner, message);
-        studentDTO.setName(name);
-        studentDTO.setKorean(korean);
-        studentDTO.setEnglish(english);
-        studentDTO.setMath(math);
-        studentDTO.setId(id);
+        return new scanInfo(name, korean, english, math);
+    }
 
+    private record scanInfo(String name, int korean, int english, int math) {
+
+    }
+
+    private static int getId(Scanner scanner) {
+        String message = "수정할 학생의 번호 : ";
+        return ScannerUtil.nextInt(scanner, message);
+    }
+
+    private static StudentDTO saveInfo(scanInfo result) {
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setName(result.name());
+        studentDTO.setKorean(result.korean());
+        studentDTO.setEnglish(result.english());
+        studentDTO.setMath(result.math());
         return studentDTO;
     }
 }
